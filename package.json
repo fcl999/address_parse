@@ -1,5 +1,5 @@
 {
-  "name": "address-parse",
+  "name": "delivery-address-parser",
   "version": "1.0.0",
   "description": "地址识别",
   "main": "address_parse.js",
