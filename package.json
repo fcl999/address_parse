@@ -1,0 +1,8 @@
+{
+  "name": "address-parse",
+  "version": "1.0.0",
+  "description": "地址识别",
+  "main": "address_parse.js",
+  "author": "fcl999 <358582007@qq.com>",
+  "license": "ISC"
+}
