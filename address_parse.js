@@ -1,24 +1,18 @@
-// import zipCode from './zipCode.js'
 import pcasCode from './pcasCode.js'
-
-let addressList = []; //地址列表
-// let zipCodeList = []; //邮编列表
-//获取地址以及邮编json
+// 地址分组
 const provinceList = [];
 const cityList = [];
 const countyList = [];
-addressList = pcasCode;
-addressList.forEach((item) => {
+pcasCode.forEach((item) => {
   formatAddressList(item, 1, null);
 });
-// zipCodeList = zipCodeFormat(zipCode);
 
 /**
- * 地址数据处理
+ * 地址数据分组处理
  * @param item-各级数据对象
  * @param index-对应的省/市/县区/街道
  * @param parent - 父级
- * @returns <array>
+ * @returns {viod}
  */
 function formatAddressList(item, index, parent) {
   item.parent = parent;
@@ -48,33 +42,14 @@ function formatAddressList(item, index, parent) {
     });
   }
 }
-// /**
-//  * 解析邮编
-//  * @param zipCode
-//  * @returns <array>
-//  */
-// function zipCodeFormat(zipCode) {
-//   let list = [];
-//   zipCode.forEach((el) => {
-//     if (el.child) {
-//       el.child.forEach((event) => {
-//         if (event.child) {
-//           event.child.forEach((element) => {
-//             list.push(element.zipcode);
-//           });
-//         }
-//       });
-//     }
-//   });
-//   return list;
-// }
+
 /**
  * 地址识别
- * @param str 识别的地址
- * @param options 匹配配置项
+ * @param str {string}识别的地址
+ * @param options {{other: bool}|undefined} 匹配配置项 
  * @returns <obj>
  */
-function smart(str, options) {
+export function smart(str, options) {
   const result = {};
   let other = '';
   const textArr = stripscript(str).split(" ");
@@ -95,11 +70,16 @@ function smart(str, options) {
     Object.assign(result, addressObj);
   });
   result.other = other;
-  if (other) {
+  if (other && options?.other) {
     result.address = (result.address || '') + other + ' ';
   }
   return result;
 }
+/**
+ * 获得1个地址数据
+ * @param {Array} matchList 匹配的地址数据列表
+ * @returns {item| null} 一个地址数据
+ */
 function getOneMatch(matchList) {
   if (!matchList.length) {
     return null;
