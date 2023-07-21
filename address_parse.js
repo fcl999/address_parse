@@ -84,7 +84,7 @@ function getOneMatch(matchList) {
   if (!matchList.length) {
     return null;
   }
-  return matchList.sort((a, b) => a.matchValue.length - b.matchValue.length)[0];
+  return matchList.sort((a, b) => b.matchValue.length - a.matchValue.length)[0];
 }
 /**
  * 匹配文本类型
@@ -125,7 +125,7 @@ function smartAddress(text, result) {
     for (let endIndex = 0; endIndex < text.length; endIndex++) {
       const province = text.slice(0, endIndex + 2); // 北  北京  北京市 北京市朝
       provinceList.forEach(item => {
-        if (item.name === province) {
+        if (item.name.indexOf(province) !== -1) {
           matchProvince.push({
             name: item.name,
             code: item.code,
@@ -162,7 +162,7 @@ function smartAddress(text, result) {
         for (let endIndex = 0; endIndex < text.length; endIndex++) {
           const city = text.slice(0, endIndex + 2);
           matchAddress.province.children.forEach(item => {
-            if (item.name === city) {
+            if (item.name.indexOf(city) !== -1) {
               matchCity.push({
                 name: item.name,
                 code: item.code,
@@ -186,7 +186,7 @@ function smartAddress(text, result) {
       for (let endIndex = 0; endIndex < text.length; endIndex++) {
         const city = text.slice(0, endIndex + 2);
         cityList.forEach(item => {
-          if (item.name === city) {
+          if (item.name.indexOf(city) !== -1) {
             matchCity.push({
               name: item.name,
               code: item.code,
@@ -222,7 +222,7 @@ function smartAddress(text, result) {
       for (let endIndex = 0; endIndex < text.length; endIndex++) {
         const county = text.slice(0, endIndex + 2);
         matchAddress.city.children.forEach(item => {
-          if (item.name === county) {
+          if (item.name.indexOf(county) !== -1) {
             matchCounty.push({
               name: item.name,
               code: item.code,
@@ -244,7 +244,7 @@ function smartAddress(text, result) {
       for (let endIndex = 0; endIndex < text.length; endIndex++) {
         const county = text.slice(0, endIndex + 2);
         countyList.forEach(item => {
-          if (item.name === county) {
+          if (item.name.indexOf(county) !== -1) {
             matchCounty.push({
               name: item.name,
               code: item.code,
